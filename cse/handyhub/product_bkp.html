@@ -47,8 +47,16 @@
         <tr>
             <td>
                 <label for="files"> Select files</label>
-                <input type="file" id="files" multiple onclick="uploadFiles()" accept="image/*"/>
-                <output id="result">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <input type="file" id="fileInput" name="files[]" multiple accept="image/*"/>
+                    <button type="button" id="uploadButton" onclick="uploadFiles()">Upload</button>
+                  </form>
+
+                <div class="product-gallery">
+                    <img src="./assets/mcpuisor.jpg" id="imagineaUnu" alt="Mac Puisor"><br>
+                    <img src="./assets/salata.jpg" id="imagineaDoi" alt="Salata"><br>
+                    <img src="./assets/bautura.jpg" id="imagineaTrei" alt="Racoritoare">
+                  </div>
 
             </td>
             <td>        
