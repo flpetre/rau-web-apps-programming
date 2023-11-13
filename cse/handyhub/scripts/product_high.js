@@ -25,43 +25,30 @@ function editProduct() {
 
 // Add event listener to the button element
 
-function uploadFiles(event) {
-    console.log("Eventul este " +event);
-    event.preventDefault();
-   // const uploadButton = document.getElementById("uploadButton");
-   // uploadButton.addEventListener("click", uploadFiles);
-    const fileInput = document.getElementById("fileInput");
-    const selectedFiles = fileInput.files;
-    // Check if any files are selected
-    if (selectedFiles.length === 0) {
-      alert("Please select at least one file to upload.");
-      return;
-    }
-    console.log("Ma pregatesc sa culeg numele fisierelor");
-    console.log("Numarul de fisiere este "+selectedFiles.length);
-    console.log("Numele fisierelor "+selectedFiles.files);
+function uploadFiles() {
 
-    const img1 = document.getElementById("imagineUnu");
-    console.log("img1 este "+img1);
-    if (!img1) {
-    addErrorMessage("Imagine 1 lipseste.");
-    return;
-    }
-    img1.src = selectedFiles.fName[0];
+    document.querySelector("#files").addEventListener("change", (e) => {
+        if(window.File && window.FileReader && window.FileList && window.Blob) {
+            const files = e.target.files;
+            const output = document.querySelector("#result");
 
-    const img2 = document.getElementById("imagineDoi");
-    if (!img2) {
-    addErrorMessage("Imagine 2 lipseste.");
-    return;
-    }
-    img2.src = selectedFiles.fName[1];
+            for(let i = 0;i<files.length;i++){
+                if(!files[i].type.match("image")) continue;
+                const picReader = new FileReader();
+                picReader.addEventListener("load", function(event){
+                    const picFile = event.target;
+                    const div = document.createElement("div");
+                    console.log("Numele fisierului este "+picFile.result)
+                    div.innerHTML = '<img class="thumbnail" src="${picFile.result}" title="${picFile.name}"/>';
+                    output.appendChild(div);
+                })
+                picReader.readAsDataURL(files[i]);
+            }
 
-    const img3 = document.getElementById("imagineTrei");
-    if (!img3) {
-    addErrorMessage("Imagine 3 lipseste.");
-    return;
-    }
-    img3.src = selectedFiles.fName[2];
+        } else {
+            alert("Your browser does not support the File API")
+        }
+    })
 
   }
 
